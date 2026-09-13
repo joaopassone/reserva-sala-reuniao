@@ -1,0 +1,862 @@
+{
+  "info": {
+    "_postman_id": "efad3374-a6f6-40b0-abf6-70800beecaa4",
+    "name": "Reserva de Salas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31735678",
+    "_collection_link": "https://go.postman.co/collection/31735678-efad3374-a6f6-40b0-abf6-70800beecaa4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Cadastrar Sala Sem Logar",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nome\": \"Sala de Reunião Premium Beta\",\r\n    \"capacidade\": 10,\r\n    \"localizacao\": \"Bloco C, 2º Andar\",\r\n    \"recursosIds\": [\r\n        \"r1111111-1111-1111-1111-111111111111\"\r\n    ]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/salas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "salas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastrar Novo Usuário Comum",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "pm.globals.set(\"id_usuario_comum\", resposta.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nome\": \"Carlos Colaborador\",\r\n    \"email\": \"carlos.user@email.com\",\r\n    \"senha\": \"senhaSegura123\",\r\n    \"tipo\": \"COMUM\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login Usuario Comum",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "pm.globals.set(\"token_usuario_comum\", resposta.token);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"carlos.user@email.com\",\r\n    \"senha\": \"senhaSegura123\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastrar uma Nova Sala (Teste Usuário Comum)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "pm.globals.set(\"sala_id\", resposta.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token_usuario_comum}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nome\": \"Sala de Reunião Premium Beta\",\r\n    \"capacidade\": 10,\r\n    \"localizacao\": \"Bloco C, 2º Andar\",\r\n    \"recursosIds\": [\r\n        \"r1111111-1111-1111-1111-111111111111\"\r\n    ]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/salas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "salas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login Admin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "pm.globals.set(\"meu_token_jwt\", resposta.token);\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"joao.passone@gmail.com\",\r\n    \"senha\": \"senha123\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastrar uma Nova Sala (Teste de Admin)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "pm.globals.set(\"sala_id\", resposta.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nome\": \"Sala de Reunião Premium Beta\",\r\n    \"capacidade\": 10,\r\n    \"localizacao\": \"Bloco C, 2º Andar\",\r\n    \"recursosIds\": [\r\n        \"r1111111-1111-1111-1111-111111111111\"\r\n    ]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/salas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "salas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Efetuar um Agendamento",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "pm.globals.set(\"reserva_id\", resposta.reservaId);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"salaId\": \"{{sala_id}}\",\r\n    \"inicio\": \"2026-10-15T14:00:00\",\r\n    \"fim\": \"2026-10-15T16:00:00\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Consultar Ocupação Salas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/salas/ocupacao?data=2026-10-15",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "salas",
+            "ocupacao"
+          ],
+          "query": [
+            {
+              "key": "data",
+              "value": "2026-10-15"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Alterar uma Sala (Teste de Admin)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nome\": \"Sala de Reunião Premium Gama\",\r\n    \"capacidade\": 100,\r\n    \"localizacao\": \"Bloco E, 2º Andar\",\r\n    \"recursosIds\": [\r\n        \"r1111111-1111-1111-1111-111111111111\"\r\n    ]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/salas/{{sala_id}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "salas",
+            "{{sala_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Efetuar um Agendamento Com Conflito",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"salaId\": \"{{sala_id}}\",\r\n    \"inicio\": \"2026-10-15T14:00:00\",\r\n    \"fim\": \"2026-10-15T16:00:00\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Alterar um Agendamento",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"inicio\": \"2026-10-15T18:00:00\",\r\n    \"fim\": \"2026-10-15T21:00:00\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas/{{reserva_id}}/alterar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas",
+            "{{reserva_id}}",
+            "alterar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancelar um Agendamento",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas/{{reserva_id}}/cancelar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas",
+            "{{reserva_id}}",
+            "cancelar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Criar Novo Recurso Sem Autorização",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "[\r\n    \"Ar Condicionado Inverter 24000 BTUs\"\r\n]\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/recursos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "recursos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Criar Novo Recurso",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\r\n    \"Ar Condicionado Inverter 24000 BTUs\"\r\n]\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/recursos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "recursos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deletar Recurso",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\r\n    \"Ar Condicionado Inverter 24000 BTUs\"\r\n]\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/recursos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "recursos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deletar Sala",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/salas/{{sala_id}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "salas",
+            "{{sala_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Alterar Usuário Comum",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token_usuario_comum}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nome\": \"Carlos Silva Colaborador\",\r\n    \"email\": \"carlos.silva@email.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/{{id_usuario_comum}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "{{id_usuario_comum}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login Usuario Comum Alterado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var resposta = pm.response.json();\r",
+              "pm.globals.set(\"token_usuario_comum\", resposta.token);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"carlos.silva@email.com\",\r\n    \"senha\": \"senhaSegura123\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deletar Usuário",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token_usuario_comum}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nome\": \"Carlos Silva Colaborador\",\r\n    \"email\": \"carlos.silva@email.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/{{id_usuario_comum}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "{{id_usuario_comum}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Alterar Usuário Comum (Admin)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nome\": \"Carlos Silva Colaborador\",\r\n    \"email\": \"carlos.silva@email.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/{{id_usuario_comum}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "{{id_usuario_comum}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deletar Usuário (Admin)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{meu_token_jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nome\": \"Carlos Silva Colaborador\",\r\n    \"email\": \"carlos.silva@email.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/{{id_usuario_comum}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "{{id_usuario_comum}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
