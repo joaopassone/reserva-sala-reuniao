@@ -7,10 +7,10 @@ Este projeto foi desenvolvido como solução para a **Atividade Substitutiva (Fa
 ## 🛠️ Tecnologias Utilizadas
 
 *   **Java 21 (LTS)** – Uso de recursos modernos e otimização de concorrência.
-*   **Spring Boot 3.x** – Ecossistema base (Spring Data JPA, Spring Security).
+*   **Spring Boot 4.1.1** – Ecossistema base (Spring Data JPA, Spring Security).
 *   **MySQL 8.0** – Banco de dados relacional para persistência de dados.
 *   **JSON Web Tokens (JWT) via JJWT 0.13** – Autenticação e autorização *stateless*.
-*   **Resend SDK 3.1** – Infraestrutura para envio assíncrono de e-mails transacionais.
+*   **Resend SDK** – Infraestrutura para envio assíncrono de e-mails transacionais.
 *   **Docker & Docker Compose** – Conteinerização e portabilidade do ambiente.
 
 ---
